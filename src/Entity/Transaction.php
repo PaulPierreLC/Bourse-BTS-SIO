@@ -117,4 +117,27 @@ class Transaction
 
         return $valeur;
     }
+
+    public function obtenirTypeTransaction(): ?string 
+    {
+        return $this->type;
+    }
+
+    public function obtenirDateTransaction(): ?\DateTimeInterface 
+    {
+        return $this->date;
+    }
+
+    public function afficherHistoriqueTransactions(): void
+    {   
+        foreach ($this->laAction->getLesTransactions() as $transaction)
+        {
+            echo $transaction->getDate();
+            echo $transaction->getType();
+            echo $transaction->getQuantite();
+            echo $transaction->getPrix();
+        }
+
+    }
+
 }

@@ -87,4 +87,68 @@ class Trader
 
         return $valeurTotale;
     }
+
+    public function obtenirNomTrader(): ?string {
+        return $this->nom;
+    }
+
+    public function obtenirNomsPortefeuilles(): ?array
+    {
+        $NomsPortefeuilles = [];
+        $portefeuilles = $this->lesPortefeuilles;
+
+        foreach ($portefeuilles as $portefeuille) {
+            $NomsPortefeuilles[] = $portefeuille->getNom();
+        }
+
+        return $NomsPortefeuilles;
+    }
+    public function compterNombreTotalActions(): ?int
+    {
+        $NombreTotalActions = 0;
+        $portefeuilles = $this->lesPortefeuilles;
+
+        foreach ($portefeuilles as $portefeuille) {
+            $actions = $portefeuille->getLesActions();
+
+            foreach ($actions as $action) {
+                $NombreTotalActions++;
+            }
+        }
+
+        return $NombreTotalActions;
+    }
+
+    public function afficherTransactionsTrader(): void {
+        $portefeuilles = $this->lesPortefeuilles;
+
+        echo "Transactions du Trader: ".$this->getNom();
+
+        foreach ($portefeuilles as $portefeuille) {
+            $transactions = $portefeuille->getLesTransactions();
+
+            echo "Portefeuille: ".$portefeuille->getNom();
+            
+            foreach ($transactions as $transaction) {
+                echo "Date: ".$transaction->getDate();
+                echo "Action: ".$transaction->getLaAction()->getSymbole();
+                echo "Quantité: ".$transaction->getQuantite();
+                echo "Prix: ".$transaction->getPrix();
+            }
+        }
+    }
+
+    public function calculerProfitTotal(): float
+    {
+        $portefeuilles = $this->lesPortefeuilles;
+
+
+        foreach ($portefeuilles as $portefeuille) {
+            $transactions = $portefeuille->getLesTransactions();
+
+            
+            foreach ($transactions as $transaction) {
+                
+            }
+    }
 }

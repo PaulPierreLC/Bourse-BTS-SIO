@@ -166,4 +166,48 @@ class Action
         
         return $quantiteTotale;
     }
+
+    public function obtenirSymbole(): string {
+        return $this->symbole;
+    }
+
+    public function obtenirNomEntreprise(): string {
+        return $this->nomEntreprise;
+    }
+
+    public function listerPortefeuillesDetenantAction(): array {
+        $PortefeuillesDetenantAction = [];
+        
+        $portefeuilles = $this->lesPortefeuilles;
+
+        foreach ($portefeuilles as $portefeuille) {
+            $PortefeuillesDetenantAction[] = $portefeuille->getNom();
+        }
+
+        return $PortefeuillesDetenantAction;
+    }
+    
+    public function afficherHistoriqueTransactions(): ?array
+    {   
+        $HistoriqueTransactions = [];
+        $transactions = $this->lesTransactions;
+
+        foreach ($transactions as $transaction)
+        {
+            $HistoriqueTransaction["date"] = $transaction->getDate();
+            $HistoriqueTransaction["type"] = $transaction->getType();
+            $HistoriqueTransaction["date"] = $transaction->getDate();
+            $HistoriqueTransaction["date"] = $transaction->getDate();   
+        }
+
+        return $HistoriqueTransactions; 
+    }
+
+    public function estActionRentable(): bool
+    {
+        $actionRentable = False;
+
+        return $actionRentable;
+    }
+
 }

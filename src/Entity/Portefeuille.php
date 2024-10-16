@@ -151,4 +151,54 @@ class Portefeuille
         
         return $valeurTotale;
     }
+
+    public function obtenirSymbolesActions(): ?array
+    {
+        $symbolesActions = [];
+        $actions = $this->lesActions;
+
+        foreach ($actions as $symbole => $details) {
+            $symbolesActions[] = $symbole;
+        }
+
+        return $symbolesActions;
+    }
+
+    public function calculerValeurPortefeuillev2(): float 
+    {
+        $valeurPortefeuille = 0;
+        $transactions = $this->lesTransactions;
+
+        foreach ($transactions as $transaction) {
+            $prixAction = $transaction->getLaAction()->getPrix();
+            $typeTransaction = $transaction->getType();
+            $quantiteTransaction = $transaction->getQuantite();
+            
+            if ($typeTransaction === "Achat") {
+                $valeurPortefeuille += $prixAction * $quantiteTransaction;
+            }
+            else if ($typeTransaction === "Vente") {
+                $valeurPortefeuille -= $prixAction * $quantiteTransaction;
+            }
+        }
+        
+
+        return $valeurPortefeuille;
+    }
+
+    public function filtrerTransactionsParDate(\DateTimeInterface $dateDebut, \DateTimeInterface $dateFin): array
+    {
+        $transactionsParDate = [];
+        $transactions = $this->lesTransactions;
+        
+        foreach ($transactions as $transaction) {
+            $dateTransaction = $transaction->getDate();
+
+            if (($dateTransaction > $dateDebut) & ($dateTransaction < $dateFin)) {
+                $transactionsParDate[] = $transaction;
+            }
+        }
+
+        return $transactionsParDate;
+    }
 }
